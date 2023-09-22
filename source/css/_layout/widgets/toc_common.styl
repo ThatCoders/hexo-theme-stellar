@@ -1,0 +1,206 @@
+.widget-wrapper.toc .widget-header
+  margin-top: 1rem
+
+.widget-wrapper.toc .widget-header
+  font-weight: 500
+  font-size: $fs-12
+  >span
+    margin: 0.5rem 0
+
+.widget-wrapper.toc.single .widget-body
+  margin-top: 0
+  border-left: 2.5px dashed var(--block-hover)
+  ul ul, ul ol
+    padding-left: 0
+  ol ul, ol ol
+    padding-left: 0
+
+  .doc-tree
+    margin: 4px 0
+    margin-left: 10.5px
+  .toc
+    padding: 0
+    margin: 0
+    //padding-left: 0.25rem
+    .toc-item .toc-link
+      //padding: 0.5rem
+      font-weight: 500
+      font-size: $fs-13
+      color: var(--text-p2)
+    .toc-child .toc-item .toc-link
+      padding: 0.25rem 0.5rem 0.25rem 1.3rem
+      font-weight: 400
+      color: var(--text-p2)
+    .toc-child .toc-child .toc-item .toc-link
+      padding-left: 2.1rem
+      font-size: $fs-12
+      color: var(--text-p3)
+    .toc-child .toc-child .toc-child .toc-item .toc-link
+      padding-left: 2.9rem
+
+.widget-wrapper.toc.single .toc-item span
+  display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+.widget-wrapper.toc .toc-item
+  color: var(--text-p2)
+  font-size: $fs-12
+  padding: 0
+  list-style: ''
+  //ul样式
+  &:has(> a.toc-link)
+    &::marker
+      content: '🌸'
+      color: #E9979C17
+  &:has(> a.toc-link:hover)
+    &::marker
+      content: '🌸'
+      color: #E9979C5C
+  &:has(> a.toc-link.active)
+    &::marker
+      content: '🌸' !important
+      color: #f1404b !important
+
+
+
+.widget-wrapper.toc.single .toc-item
+
+  &.active
+    color: #fff;
+    background: #f1404b;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    -webkit-box-shadow: 0 8px 15px rgb(240 65 76 / 30%);
+    box-shadow: 0 8px 15px rgb(240 65 76 / 30%);
+  .toc-child .toc-item
+    padding: 0
+  &:after
+    content: none
+// 二级目录颜色加深
+.toc-level-2
+    &::marker
+      content: '🌸'
+      color: #E9979C5C !important
+.widget-wrapper.toc.single a.toc-link
+  position:relative;
+  color:#738192;
+  background:transparent;
+  line-height:20px;
+  border-radius:10px;
+  display:inline-grid;
+  padding:4px 20px 4px 10px;
+  margin:-2px 0 -2px 12px;
+  text-decoration:none;
+  transition:.3s;
+  margin-left :0
+  left: 10px;
+  &:before
+    content:"";
+    position:absolute;
+    transition:.3s;
+    border-right:0 solid transparent;
+    border-top:0.34rem solid transparent;
+    border-bottom:0.34rem solid transparent;
+    top: 8px;
+    left:0px;
+  &:hover
+    color:#fff !important;
+    background:#f1404bBF;
+    margin-top:2px;
+    margin-bottom:2px;
+    -webkit-box-shadow:0 8px 15px rgba(240,65,76,0.3) !important;
+    box-shadow:0 8px 15px rgba(240,65,76,0.3) !important;
+    &::before
+      border-right:0.34rem solid #f1404bBF !important;left:-0.34rem;
+  &.active
+    color:#fff !important;
+    background:#f1404b !important;
+    margin-top:2px;
+    height: 1rem;
+    margin-bottom:2px;
+    -webkit-box-shadow:0 8px 15px rgba(240,65,76,0.3) !important;
+    box-shadow:0 8px 15px rgba(240,65,76,0.3) !important;
+    &:before
+      border-right:0.34rem solid #f1404b !important;left:-0.31rem;
+
+//激活上级目录时显示子目录
+.toc-item a.toc-link+ol
+  display: none
+.toc a.toc-link.active+ol
+  display: block
+ol:has(> .toc-item a.active)
+  display: block
+.doc-tree:hover a.toc-link+ol
+  display: block
+
+
+// wiki样式保持
+.widget-wrapper.toc.multi .widget-body
+  margin-top: 0
+  ul ul, ul ol
+    padding-left: 0
+  ol ul, ol ol
+    padding-left: 0
+
+  .doc-tree
+    margin: 4px 0
+  .toc
+    padding: 0
+    margin: 0
+    padding-left: 0.25rem
+    .toc-item .toc-link
+      padding: 0.5rem
+      font-weight: 500
+      font-size: $fs-13
+      color: var(--text-p2)
+    .toc-child .toc-item .toc-link
+      padding: 0.25rem 0.5rem 0.25rem 1.3rem
+      font-weight: 400
+      color: var(--text-p2)
+    .toc-child .toc-child .toc-item .toc-link
+      padding-left: 2.1rem
+      font-size: $fs-12
+      color: var(--text-p3)
+    .toc-child .toc-child .toc-child .toc-item .toc-link
+      padding-left: 2.9rem
+
+
+.widget-wrapper.toc.multi .toc-item
+  color: var(--text-p2)
+  font-size: $fs-12
+  padding: 0
+  list-style: none
+  &.active
+    color: $color-theme
+    border-left-color: @color
+  .toc-child .toc-item
+    padding: 0
+.widget-wrapper.toc.multi a.toc-link
+  color: inherit
+  display: block
+  line-height: 1.2
+  border-radius: 4px
+  position: relative
+  &:before
+    content: ''
+    position: absolute
+    left: -6px
+    top: 'calc(50% - %s)' % 6px
+    bottom: 'calc(50% - %s)' % 6px
+    width: 2px
+    border-radius: 2px
+    background: $color-theme
+    visibility: hidden
+  &:hover
+    background: var(--block-hover)
+  &.active
+    color: $color-theme !important
+    &:before
+      visibility: visible
+
+
+
+
+
+
+
+
+

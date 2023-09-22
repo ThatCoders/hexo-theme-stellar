@@ -1,0 +1,94 @@
+<script>
+  function load_comment(){
+    if(!document.getElementById("waline_container"))return;
+    stellar.loadCSS('<%- theme.comments.waline.css %>');
+    stellar.loadScript('<%- theme.comments.waline.js %>', {defer:true}).then(function () {
+      const el = document.getElementById("waline_container");
+      var path = el.getAttribute('comment_id');
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      Waline.init(Object.assign(<%- JSON.stringify(theme.comments.waline) %>, {
+        el: '#waline_container',
+        path: path,
+        <% if(!!theme.comments.waline.imageUploader?.api){ %>
+          imageUploader: function(file) {
+            let headers = new Headers();
+            headers.set('Accept', 'application/json');
+            <% if(!!theme.comments.waline.imageUploader?.token) { %>
+              headers.set('<%= theme.comments.waline.imageUploader?.tokenName %>', '<%= theme.comments.waline.imageUploader?.token %>')
+            <% } %>
+            let formData = new FormData();
+            formData.append('<%= theme.comments.waline.imageUploader?.fileName %>', file);
+            return fetch('<%= theme.comments.waline.imageUploader?.api %>',{
+              method: 'POST',
+              body: formData,
+              headers: headers
+              }).then((resp) => resp.json())
+                .then((resp) => resp.<%= theme.comments.waline.imageUploader?.resp %>)
+          },
+        <% } %>
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+<!--<script type="module">-->
+<!--    import {init} from '/custom/package/waline/dist/waline.mjs';-->
+<!--    const origin = window.location.origin;-->
+<!--    const el = document.getElementById("waline_container");-->
+<!--    var idPath = el.getAttribute('comment_id');-->
+<!--    if (!idPath) {-->
+<!--        idPath = decodeURI(window.location.pathname);-->
+<!--    }-->
+
+<!--    const waline = init({-->
+<!--        el: '#waline_container',-->
+<!--        search: false,  //关闭表情查找-->
+<!--        // 设置 emoji 为微博与哔哩哔哩-->
+<!--        emoji: [-->
+<!--            origin+'/custom/package/waline/emoji/bilibili',-->
+<!--            origin+'/custom/package/waline/emoji/qq',-->
+<!--            origin+'/custom/package/waline/emoji/tieba',-->
+<!--            origin+'/custom/package/waline/emoji/weibo'-->
+<!--        ],-->
+<!--        // reaction: true, // 开启反应-->
+<!--        reaction: [-->
+<!--            origin+'/custom/package/waline/emoji/qq/qq_pretty.gif',-->
+<!--            origin+'/custom/package/waline/emoji/qq/qq_burning_eyes.gif',-->
+<!--            origin+'/custom/package/waline/emoji/qq/qq_sunglasses.gif',-->
+<!--            origin+'/custom/package/waline/emoji/qq/qq_crazy.gif',-->
+<!--            origin+'/custom/package/waline/emoji/qq/qq_pick_nose.gif',-->
+<!--            origin+'/custom/package/waline/emoji/qq/qq_whatever.gif',-->
+<!--            origin+'/custom/package/waline/emoji/qq/qq_waterlemon_face.gif',-->
+<!--            origin+'/custom/package/waline/emoji/qq/qq_tangled.gif'-->
+<!--        ],-->
+<!--        comment: true, // 评论数统计-->
+<!--        // pageview: true, // 浏览量统计-->
+<!--        serverURL: 'https://waline.thatapi.cn',-->
+<!--        meta: ['nick', 'mail', 'link'],-->
+<!--        login: 'enable',-->
+<!--        path: idPath,-->
+<!--        imageUploader: (file) => {-->
+<!--            let formData = new FormData();-->
+<!--            let headers = new Headers();-->
+<!--            formData.append('file', file);-->
+<!--            headers.set('Authorization', 'Bearer 4|7D4fxcpPSntasmu2MyHVdnWH19fdABI594cG3oYo');-->
+<!--            headers.set('Accept', 'application/json');-->
+<!--            // headers.set("Content-Type","multipart/form-data");-->
+<!--            return fetch('https://lsky.thatcoder.cn/api/v1/upload', {-->
+<!--                method: 'POST',-->
+<!--                headers: headers,-->
+<!--                body: formData,-->
+<!--                mode: 'cors',-->
+<!--            })-->
+<!--                .then((resp) => resp.json())-->
+<!--                .then((resp) => resp.data.links.url);-->
+<!--        },-->
+<!--    });-->
+<!--</script>-->

@@ -1,0 +1,63 @@
+Arguments: 
+  F:\APP\depend\nvm\NowNodeV\node.exe F:\APP\depend\nvm\NowNodeV\node_modules\yarn\bin\yarn.js install
+
+PATH: 
+  C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\windows\System32\OpenSSH;C:\Program Files\python;C:\Program Files\python\Scripts;D:\BtSoft\panel\script;C:\windows\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps;F:\App\depend\nvm;F:\APP\depend\git\bin;F:\APP\depend\nvm\NowNodeV;F:\App\depend\git\cmd;;C:\Program Files\OpenSSH\bin;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;F:\App\depend\nvm;F:\APP\depend\nvm\NowNodeV;F:\APP\depend\git\bin;;C:\Users\Administrator\.fly\bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  18.13.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.npm.taobao.org/hexo-renderer-ejs: tunneling socket could not be established, cause=connect ECONNREFUSED 127.0.0.1:7890
+      at ClientRequest.onError (F:\App\depend\nvm\v18.13.0\node_modules\yarn\lib\cli.js:152376:17)
+      at Object.onceWrapper (node:events:628:26)
+      at ClientRequest.emit (node:events:513:28)
+      at Socket.socketErrorListener (node:_http_client:496:9)
+      at Socket.emit (node:events:513:28)
+      at emitErrorNT (node:internal/streams/destroy:151:8)
+      at emitErrorCloseNT (node:internal/streams/destroy:116:3)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+npm manifest: 
+  {
+    "name": "hexo-theme-stellar",
+    "version": "1.18.5",
+    "description": "Elegant and powerful theme for Hexo.",
+    "main": "package.json",
+    "scripts": {
+      "test": "echo test"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/xaoxuu/hexo-theme-stellar.git"
+    },
+    "keywords": [
+      "hexo",
+      "theme",
+      "stellar"
+    ],
+    "author": "[@xaoxuu](https://github.com/xaoxuu/)",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/xaoxuu/hexo-theme-stellar/issues/"
+    },
+    "dependencies": {
+      "hexo-renderer-ejs": "^2.0.0",
+      "hexo-renderer-stylus": "^2.1.0"
+    },
+    "homepage": "https://xaoxuu.com/wiki/stellar/",
+    "devDependencies": {
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

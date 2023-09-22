@@ -1,0 +1,10 @@
+﻿<% if (page.layout === 'post' || (page.layout === 'wiki' && page.wiki && page.wiki.length > 0)) { %>
+    <script>
+        let tianliGPT_postSelector = '.md-text.content.<%= page.layout === 'post' ? 'post' : 'wiki' %>';
+        let tianliGPT_key = '<%= theme.TianliGpt.api %>';
+        var TianliName = '小意-GPT';
+        var TianliText = '小意总结';
+        var TianliIconUrl = 'https://upyun.thatcdn.cn/public/img/icon/AI.png';
+    </script>
+    <script src="https://upyun.thatcdn.cn/public/web/tianLiChat/AbstractAI_Heo_TC.js"></script>
+<% } %>
