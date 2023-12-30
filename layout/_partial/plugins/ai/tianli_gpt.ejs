@@ -3,6 +3,9 @@
     let tianliGPT_postSelector = '.md-text.content.<%= page.layout === "post" ? "post" : "wiki" %>';
     let tianliGPT_key = '<%= theme.plugins.tianli_gpt.api %>';
     let tianliGPT_typingAnimate = '<%= theme.plugins.tianli_gpt.typingAnimate %>';
+    var tianli_name = '<%= theme.plugins.tianli_gpt.name %>';
+    var tianli_text = '<%= theme.plugins.tianli_gpt.text %>';
+    var tianli_icon_url = '<%= theme.plugins.tianli_gpt.icon %>';
   </script>
-  <script defer src="https://cdn1.tianli0.top/gh/zhheo/Post-Abstract-AI@0.13/tianli_gpt.js"></script>
+  <script defer src="<%= theme.plugins.tianli_gpt.cdn %>"></script>
 <% } %>
