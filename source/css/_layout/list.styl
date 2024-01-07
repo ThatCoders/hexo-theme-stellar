@@ -54,7 +54,6 @@
         height: 1.5em
 
 .post-list .post-card:hover
-  box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.1), 0 4px 16px 0px rgba(0, 0, 0, 0.1)
   img 
     transform: scale(1.02)
     filter: brightness(80%)
@@ -165,6 +164,7 @@
     line-height: 1
     margin-bottom: 0.75rem
   .cap
+    --theme-block: var(--block)
     background: var(--theme-block)
     padding: 2px 4px
     border-radius: 2px
@@ -172,3 +172,7 @@
     margin-bottom: 0
   .cap+.cap
     margin-left: 4px
+
+.post-list.archives
+  @media screen and (max-width: $device-mobile)
+    margin: 1rem 0
