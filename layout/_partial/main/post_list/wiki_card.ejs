@@ -2,6 +2,13 @@
 function layoutDiv() {
   var el = '';
   el += '<article class="md-text">';
+  if (proj.cover_config && proj.cover_config === 'poster'){
+    el += '<div class="post-cover">';
+    el += '<img src="' + proj.cover + '"/>';
+    el += '</div>';
+    el += '</article>'
+    return el
+  }
   el += `<div class="preview"><img src="${proj.icon ? proj.icon : theme.default.project}"/></div>`
   el += '<div class="excerpt">';
   if (proj.tags && proj.tags.length > 0) {
