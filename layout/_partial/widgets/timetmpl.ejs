@@ -1,0 +1,61 @@
+<%
+
+function layoutNodeTitle(content) {
+  var el = ''
+  el += '<div class="header">'
+  if (content && content.length > 0) {
+    el += content
+  }
+  el += '</div>'
+  return el
+}
+
+function layoutNodeContent(content) {
+  var el = ''
+  el += '<div class="body fs14">'
+  el += content
+  el += '</div>'
+  return el
+}
+
+function layoutDiv() {
+  var el = '';
+  el += '<widget class="widget-wrapper timeline">';
+    if (item.title) {
+      el += '<div class="widget-header cap theme dis-select">';
+      el += '<span class="name">' + item.title + '</span>';
+      el += '</div>';
+    }
+    el += '<div class="widget-body fs14">';
+      el += '<div class="tag-plugin timetmpl timeline">';
+      var arr = item.config.split(/<!--\s*node (.*?)\s*-->/g).filter(item => item.trim().length > 0)
+  if (arr.length > 0) {
+    var nodes = []
+    arr.forEach((item, i) => {
+      if (i % 2 === 0) {
+        nodes.push({
+          header: item
+        })
+      } else if (nodes.length > 0) {
+        var node = nodes[nodes.length-1]
+        if (node.body === undefined) {
+          node.body = item
+        } else {
+          node.body += '\n' + item
+        }
+      }
+    })
+    nodes.forEach((node, i) => {
+      el += '<div class="timenode" index="' + (i) + '">'
+      el += layoutNodeTitle(node.header)
+      el += layoutNodeContent(node.body)
+      el += '</div>'
+    })
+  }
+      el += '</div>';
+    el += '</div>';
+  el += '</widget>';
+  return el;
+}
+%>
+<%- layoutDiv() %>
