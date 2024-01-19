@@ -3,7 +3,9 @@
     let tianliGPT_postSelector = 'article.content';
     let tianliGPT_key = '<%= theme.plugins.tianli_gpt.api %>';
     let tianliGPT_typingAnimate = '<%= theme.plugins.tianli_gpt.typingAnimate %>';
-    let tianliGPT_wordLimit = <%= theme.plugins.tianli_gpt.limit %>;
+    var tianli_name = '<%= theme.plugins.tianli_gpt.name %>';
+    var tianli_text = '<%= theme.plugins.tianli_gpt.text %>';
+    var tianli_icon_url = '<%= theme.plugins.tianli_gpt.icon %>';
   </script>
-<script defer src="https://cdn1.tianli0.top/gh/zhheo/Post-Abstract-AI@0.15.2/tianli_gpt.min.js"></script>
+  <script defer src="<%= theme.plugins.tianli_gpt.cdn %>"></script>
 <% } %>
