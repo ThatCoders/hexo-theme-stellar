@@ -1,7 +1,8 @@
 btn:
   home: 首頁
   blog: 網誌
-  wiki: Wiki
+  wiki: 文檔
+  topic: 專欄
   recent_publish: 近期發布
   all_wiki: 所有 Wiki
   category: 分類
@@ -23,7 +24,7 @@ meta:
   related_posts: 您可能感興趣的文章
   comment_title: 參與討論
   back_to_top: 回到頁首
-  more: '更多「%s」'
+  more: 更多
   created_author: 本文由 %s 發布於
   created: 發布於
   updated: 更新於

@@ -197,13 +197,16 @@ init.registerTabsTag()
 // scrollreveal
 if (stellar.plugins.scrollreveal) {
   stellar.loadScript(stellar.plugins.scrollreveal.js).then(function () {
-    ScrollReveal().reveal("body .reveal", {
+    const slideUp = {
       distance: stellar.plugins.scrollreveal.distance,
       duration: stellar.plugins.scrollreveal.duration,
       interval: stellar.plugins.scrollreveal.interval,
       scale: stellar.plugins.scrollreveal.scale,
+      opacity: 0,
       easing: "ease-out"
-    });
+    }
+    ScrollReveal().reveal('.l_left .slide-up', slideUp)
+    ScrollReveal().reveal('.l_main .slide-up', slideUp)
   })
 }
 
@@ -242,7 +245,7 @@ if (stellar.plugins.stellar) {
       const els = document.getElementsByClassName('stellar-' + key + '-api');
       if (els != undefined && els.length > 0) {
         stellar.jQuery(() => {
-          if (key == 'timeline' || 'memos') {
+          if (key == 'timeline' || 'memos' || 'marked') {
             stellar.loadScript(stellar.plugins.marked).then(function () {
               stellar.loadScript(js, { defer: true });
             });
@@ -362,7 +365,7 @@ if (stellar.search.service) {
           }
           path = stellar.config.root + path;
           const filter = $inputArea.attr('data-filter') || '';
-          searchFunc(path, filter, 'search-input', 'search-result');
+          searchFunc(path, filter, 'search-wrapper', 'search-input', 'search-result');
         });
         $inputArea.keydown(function(e) {
           if (e.which == 13) {

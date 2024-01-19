@@ -1,21 +1,53 @@
-<!DOCTYPE html>
-<html lang='<%- page.lang %>'>
-<%- partial('_partial/head') %>
-<body>
-  <%- partial('_partial/cover/index') %>
-  <div class='l_body' id='start'>
-    <aside class='l_left' layout='<%- page.layout %>'>
-    <%- partial('_partial/sidebar/index') %>
-    </aside>
-    <div class='l_main<%- page.content ? "" : " list" %>'>
-      <%- partial('_partial/main/header/index') %>
-      <%- body %>
-      <%- partial('_partial/main/footer') %>
-      <%- partial('_partial/menubtn') %>
-    </div>
-  </div>
-  <div class='scripts'>
-    <%- partial('_partial/scripts/index') %>
-  </div>
-</body>
-</html>
+<%
+// 页面类型：索引页面还是内容页面
+var page_type = 'index'
+if (['post', 'page', 'wiki', null].includes(page.layout)) {
+  if (!page.nav_tabs) {
+    page_type = 'content'
+  }
+}
+// 文章类型：技术类文章/文学类文章
+var article_type = theme.article.type
+if (page.type?.length > 0) {
+  article_type = page.type
+}
+// 是否缩进
+var indent = false
+if (page.indent != null) {
+  indent = page.indent
+} else if (theme.topic.tree[page.topic]?.indent != null) {
+  indent = theme.topic.tree[page.topic]?.indent
+} else if (theme.wiki.tree[page.wiki]?.indent != null) {
+  indent = theme.wiki.tree[page.wiki]?.indent
+} else if (theme.article.indent != null) {
+  indent = theme.article.indent
+} else {
+  indent = article_type === 'story'
+}
+
+var html = `<!DOCTYPE html>`
+html += `<html lang="${page.lang}">`
+  html += partial('_partial/head')
+  html += `<body>`
+    html += partial('_partial/cover/index')
+    html += `<div class="l_body ${page_type} ${article_type}" id="start" layout="${page.layout}" ${indent ? 'text-indent' : ''}>`
+      html += `<aside class="l_left">`
+        html += `<div class="sidebar-container${theme.style.sidebar?.blur ? ' sidebar-blur' : ''}">`
+          html += partial('_partial/sidebar/index')
+        html += `</div>`
+      html += `</aside>`
+      html += `<div class="l_main" id="main">`
+        html += partial('_partial/sidebar/logo', {where: 'main'})
+        html += body
+        html += partial('_partial/main/footer')
+        html += partial('_partial/menubtn')
+        html += `<div class="main-mask" onclick="sidebar.toggle()"></div>`
+      html += `</div>`
+    html += `</div>`
+    html += `<div class="scripts">`
+      html += partial('_partial/scripts/index')
+    html += `</div>`
+  html += `</body>`
+html += `</html>`
+%>
+<%- html %>

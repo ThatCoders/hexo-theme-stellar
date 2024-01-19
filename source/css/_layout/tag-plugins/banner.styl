@@ -6,9 +6,9 @@
   flex-direction: column
   justify-content: flex-end
   align-items: flex-start
-  height: 240px
+  height: 220px
   @media screen and (max-width: $device-mobile-max)
-    height: 200px
+    height: 180px
   .bg
     z-index: 0
   .content 
@@ -111,11 +111,13 @@
     img.bg
      transform: scale(1.01)
 
-.l_main.list .tag-plugin.banner
-  background: var(--block-hover)
-  .content .top
-    margin-top: 1.5rem
-  margin: 0 1rem
-  @media screen and (max-width: $device-mobile)
-    margin: 0
+.tag-plugin.banner .navbar a.active
+  blur-effect()
+
+
+.tag-plugin.banner.author
+  @media screen and (min-width: $device-mobile-max)
+    margin-left: var(--gap-l)
+    margin-right: var(--gap-l)
+  @media screen and (max-width: $device-mobile-max)
     border-radius: 0

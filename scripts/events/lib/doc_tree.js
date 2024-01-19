@@ -9,7 +9,6 @@ class WikiPage {
     this.id = page._id
     this.wiki = page.wiki
     this.title = page.title
-    this.seo_title = page.seo_title
     this.path = page.path
     this.path_key = page.path.replace('.html', '')
     this.layout = page.layout
@@ -35,11 +34,15 @@ function getWikiObject(ctx) {
       if (obj.sort == null) {
         obj.sort = 0
       }
-      if (obj.path?.startsWith('/')) {
-        obj.path = obj.path.substring(1)
-      }
-      if (obj.path?.endsWith('/') == false) {
-        obj.path = obj.path + '/'
+      if (obj.base_dir) {
+        if (obj.base_dir.startsWith('/')) {
+          obj.base_dir = obj.base_dir.substring(1)
+        }
+        if (obj.base_dir.length > 1 && obj.base_dir.endsWith('/') == false) {
+          obj.base_dir = obj.base_dir + '/'
+        }
+      } else {
+        obj.base_dir = ''
       }
       list.push(obj)
     }
@@ -56,7 +59,7 @@ module.exports = ctx => {
   var wiki = getWikiObject(ctx)
   const pages = ctx.locals.get('pages')
   // wiki 所有页面
-  const wiki_pages = pages.filter(p => (p.layout === 'wiki')).map(p => new WikiPage(p))
+  const wiki_pages = pages.filter(p => (p.wiki != null)).map(p => new WikiPage(p))
   const wiki_list = Object.keys(wiki.tree)
   // 上架的项目列表
   wiki.shelf = ctx.locals.get('data').wiki || []
@@ -101,25 +104,30 @@ module.exports = ctx => {
 
     // 首页
     // 未特别指定首页时，获取TOC第一页作为首页
-    if (item.homepage == null && item.toc != null) {
+    var homepage = item.homepage
+    if (homepage == null && item.toc != null) {
       for (let id of Object.keys(item.toc)) {
         const sec = item.toc[id]
         for (let key of sec) {
-          let hs = sub_pages.filter(p => p.path_key == item.path + key)
+          let hs = sub_pages.filter(p => p.path_key == item.base_dir + key)
           if (hs.length > 0) {
-            item.homepage = hs[0]
+            homepage = hs[0]
             break
           }
         }
-        if (item.homepage != null) {
+        if (homepage != null) {
           break
         }
       }
     }
-    if (item.homepage == null) {
-      item.homepage = sub_pages[0]
+    if (homepage == null) {
+      homepage = sub_pages[0]
     }
-    item.homepage.is_homepage = true
+    if (typeof homepage == 'string') {
+      homepage = {path: homepage}
+    }
+    homepage.is_homepage = true
+    item.homepage = homepage
     // 内页分组
     var sections = []
     var others = sub_pages
@@ -128,21 +136,21 @@ module.exports = ctx => {
       for (let title of Object.keys(item.toc)) {
         var sec = { title: title, pages: []}
         for (let key of item.toc[title]) {
-          sec.pages = sec.pages.concat(sub_pages.filter(p => p.path_key == item.path + key))
-          others = others.filter(p => p.path_key != item.path + key)
+          sec.pages = sec.pages.concat(sub_pages.filter(p => p.path_key == item.base_dir + key))
+          others = others.filter(p => p.path_key != item.base_dir + key)
         }
         sections.push(sec)
       }
       if (others.length > 0 && others.filter(p => p.title?.length > 0).length > 0) {
         sections.push({
           title: '...',
-          pages: others.sort((p1, p2) => p1.path - p2.path)
+          pages: others.sort((p1, p2) => p1.title - p2.title)
         })
       }
     } else {
       // 自动设置顺序
       sections.push({
-        pages: sub_pages.sort((p1, p2) => p1.path - p2.path)
+        pages: sub_pages.sort((p1, p2) => p1.title - p2.title)
       })
     }
     
@@ -177,7 +185,7 @@ module.exports = ctx => {
     }
     all_tags[tag_name] = {
       name: tag_name,
-      path: (ctx.config.wiki_dir || 'wiki') + '/tags/' + tag_name + '/index.html',
+      path: (ctx.theme.config.site_tree.index_wiki.base_dir) + '/tags/' + tag_name + '/index.html',
       items: items
     }
   })

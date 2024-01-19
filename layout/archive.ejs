@@ -4,7 +4,7 @@ if (page.menu_id == undefined) {
   page.menu_id = 'post';
 }
 if (page.author) {
-  page.header = 'auto';
+  page.header = false;
 }
 function layoutArchiveList() {
   var el = ''
@@ -13,7 +13,7 @@ function layoutArchiveList() {
     el += partial('_partial/main/navbar/author_banner')
   } else {
     page.title = __('btn.archives')
-    el += partial('_partial/main/navbar/list_post')
+    el += partial('_partial/main/navbar/nav_tabs_blog')
   }
   el += `<div class="post-list archives">`
   var years = []
@@ -24,7 +24,7 @@ function layoutArchiveList() {
     }
   })
   for (let year of years) {
-    el += `<article class="${scrollreveal()}" id="archive">`
+    el += `<article class="${scrollreveal('')}" id="archive">`
   	el += `<div class='archive-header h4'>${year}</div>`
     site.posts.sort('date', -1).filter(function (post) {
       post.year = date(post.date, 'YYYY')

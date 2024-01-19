@@ -60,8 +60,14 @@ details.folding[child=codeblock]>div.body
     margin: 0
     figcaption
       display: none
+      span
+        background: var(--theme-block)
     .code:before
       content: none
+  .highlight+.highlight
+    border-top: 1px dashed var(--theme-border)
+    border-top-left-radius: 0
+    border-top-right-radius: 0
 
 details.folding[child=iframe]
   overflow: hidden

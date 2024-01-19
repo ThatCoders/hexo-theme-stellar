@@ -5,7 +5,7 @@
     margin-left: "calc(2 * %s)" % var(--gap-l)
     margin-right: "calc(2 * %s + %s / 2)" % (var(--gap-l) var(--width-left))
   @media screen and (min-width: $device-mobile-max)
-    padding-top: "calc(2 * %s)" % var(--gap-l)
+    padding-top: 8px
   @media screen and (max-width: $device-mobile-max)
     padding-top: 1rem
   header
@@ -13,6 +13,7 @@
     .logo-wrap
       margin: 0
 
-.l_main.list
-  @media screen and (max-width: $device-mobile-max)
-    padding-top: 0
+.l_body.index
+  .l_main
+    @media screen and (max-width: $device-mobile-max)
+      padding-top: 0
