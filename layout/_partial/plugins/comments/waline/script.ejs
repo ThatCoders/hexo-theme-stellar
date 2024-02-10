@@ -1,14 +1,15 @@
-<script>
+<script type="module" defer="defer">
+    import { init } from 'https://upyun.thatcdn.cn/public/web/waline/v3/client/dist/waline.js';
   function load_comment(){
     if(!document.getElementById("waline_container"))return;
     stellar.loadCSS('<%- theme.comments.waline.css %>');
-    stellar.loadScript('<%- theme.comments.waline.js %>', {defer:true}).then(function () {
+    stellar.loadScript('<%- theme.comments.waline.js %>', {defer:true, type:"module"}).then(function () {
       const el = document.getElementById("waline_container");
       var path = el.getAttribute('comment_id');
       if (!path) {
         path = decodeURI(window.location.pathname);
       }
-      Waline.init(Object.assign(<%- JSON.stringify(theme.comments.waline) %>, {
+        init(Object.assign(<%- JSON.stringify(theme.comments.waline) %>, {
         el: '#waline_container',
         path: path,
         <% if(!!theme.comments.waline.imageUploader?.api){ %>
@@ -31,6 +32,7 @@
       }));
     });
   }
+  stellar.loadCSS('<%- theme.comments.waline.custom.css %>');
   window.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
     load_comment();
