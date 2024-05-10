@@ -8,16 +8,24 @@ if (page.author) {
 }
 function layoutArchiveList() {
   var el = ''
+  var cls = ''
   if (page.author) {
     page.title = page.author.name
-    el += partial('_partial/main/navbar/author_banner')
+    page.banner = page.author.banner
+    page.banner_info = {
+      avatar: page.author.avatar,
+      subtitle: page.author.description
+    }
+    el += partial('_partial/main/navbar/article_banner')
+    cls += ' author'
   } else {
     page.title = __('btn.archives')
     el += partial('_partial/main/navbar/nav_tabs_blog')
   }
-  el += `<div class="post-list archives">`
+  el += `<div class="post-list${cls} archives">`
   var years = []
-  site.posts.sort('date', -1).each(function(post) {
+  const posts = page.author != null ? site.posts.filter(p => (p.author || theme.default_author.id) == page.author.id) : site.posts
+  posts.sort('date', -1).each(function(post) {
   	post.year = date(post.date, 'YYYY')
   	  if (post.year && (years.includes(post.year) == false) && (post.title || post.date)) {
   		  years.push(post.year)
@@ -26,7 +34,7 @@ function layoutArchiveList() {
   for (let year of years) {
     el += `<article class="${scrollreveal('')}" id="archive">`
   	el += `<div class='archive-header h4'>${year}</div>`
-    site.posts.sort('date', -1).filter(function (post) {
+    posts.sort('date', -1).filter(function (post) {
       post.year = date(post.date, 'YYYY')
       return post.year == year
     }).each(function(post) {

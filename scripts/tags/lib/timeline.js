@@ -18,7 +18,7 @@ function layoutNodeTitle(ctx, content) {
   var el = ''
   el += '<div class="header">'
   if (content && content.length > 0) {
-    el += ctx.render.renderSync({text: content, engine: 'markdown'}).split('\n').join('')
+    el += content
   }
   el += '</div>'
   return el
@@ -41,7 +41,7 @@ module.exports = ctx => function(args, content = '') {
     args.type = 'timeline'
   }
   if (args.api && args.api.length > 0) {
-    el += '<div class="tag-plugin timeline stellar-' + args.type + '-api"'
+    el += `<div class="tag-plugin timeline ds-${args.type}"`
     el += ' ' + ctx.args.joinTags(args, ['api', 'user', 'limit', 'hide', 'avatar']).join(' ')
     el += '>'
   } else {

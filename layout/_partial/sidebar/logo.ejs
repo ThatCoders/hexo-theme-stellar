@@ -6,24 +6,15 @@ if (page.logo) {
   const proj = theme.wiki.tree[page.wiki]
   var l = proj.logo
   if (l) {
+    if (l.title.includes('](') == false) {
+      l.title = `[${l.title}](${url_for(proj.homepage?.path || '')})`
+    }
     logo = l
   } else if (proj.name || proj.icon) {
     logo = {
       icon: proj.icon || theme.default.project,
       title: `[${proj.name || proj.title}](${url_for(proj.homepage?.path || '')})`,
       subtitle: proj.subtitle
-    }
-  }
-} else if (theme.topic.tree[page.topic]) {
-  const topic = theme.topic.tree[page.topic]
-  var l = topic.logo
-  if (l) {
-    logo = l
-  } else if (topic.name || topic.icon) {
-    logo = {
-      icon: topic.icon || theme.default.topic,
-      title: `[${topic.name || topic.title}](${url_for(topic.homepage?.path || '')})`,
-      subtitle: topic.subtitle
     }
   }
 }
@@ -76,7 +67,7 @@ function layoutDiv() {
   const main = md_text(logo.title)
   if (main) {
     let url = md_link(logo.title)
-    el += layoutTitle(main, url, logo.subtitle)
+    el += layoutTitle(main, url, md_text(logo.subtitle))
   }
   el += `</div>`
   el += '</header>'

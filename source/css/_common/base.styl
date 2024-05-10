@@ -25,7 +25,7 @@ img
 
 
 li
-  font-size: $fs-15
+  font-size: 'calc(%s - 1px)' % var(--fsp)
 
 
 ul,ol
@@ -40,7 +40,8 @@ table:not([class])
   margin: 1rem 0
   max-width: 100%
   vertical-align: text-top
-  font-size: $fs-14
+  --fsp: $fsp2
+  font-size: var(--fsp)
   th
     background: var(--block)
   td,th

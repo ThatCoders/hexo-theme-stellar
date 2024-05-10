@@ -1,16 +1,13 @@
 <%
-const proj = theme.wiki.tree[page.wiki]
-var hasTOC = true
+
 function layoutTocBody() {
   if (toc(page.content).length > 0) {
-    hasTOC = true
     return toc(page.content, {
       list_number: item.list_number,
       min_depth: item.min_depth,
       max_depth: item.max_depth
-    });
+    })
   }
-  hasTOC = false
   return ''
 }
 
@@ -18,98 +15,54 @@ function layoutTocHeader(title) {
   var el = ''
   el += `<div class="widget-header dis-select">`
   el += `<span class="name">${title || __("meta.toc")}</span>`
+  el += `<a class="cap-action" onclick="sidebar.toggleTOC()" >${icon('default:rightbar')}</a>`
   el += `</div>`
   return el
 }
 
-function layoutDocTree(pages) {
-  var el = ''
-  for (let p of pages) {
-    if (p.title == null || p.title.length == 0) {
-      continue
-    }
-    let isActive = ''
-    if (p.path === page.path) {
-      isActive += ' active'
-    }
-    el += `<div class="doc-tree${isActive}">`
-    if (proj.pages.length > 1) {
-      let href = url_for(p.path);
-      if (p.is_homepage) {
-        href += '#start'
-      }
-      el += `<a class="doc-tree-link${isActive}" href="${href}">`
-      el += `<span class="toc-text">${p.title}</span>`
-      if (isActive.length > 0) {
-        el += icon('default:bookmark')
-      }
-      el += `</a>`
-    }
-    if (p.path === page.path) {
-      el += layoutTocBody()
-    }
-    el += `</div>`
+function layoutToc(fallback) {
+  const tocBody = layoutTocBody()
+  if (tocBody.length == 0) {
+    return ''
   }
+  var el = ''
+  el += `<widget class="widget-wrapper${scrollreveal(' ')} toc" id="data-toc" collapse="${item.collapse}">`
+  el += layoutTocHeader()
+  el += `<div class="widget-body">`
+  el += tocBody
+  el += `</div>`
+  el += `</widget>`
   return el
 }
 
-
 function layoutDiv(fallback) {
-  var type = ''
-  if (proj?.pages) {
-    type = proj.pages.length > 1 ? 'multi' : 'single'
-  } else {
-    let toc_content = toc(page.content)
-    if (toc_content && toc_content.length > 0) {
-      type = 'single'
-    }
+  const editBtn = partial('components/edit', {map: item.edit_this_page})
+  const tocBody = layoutTocBody()
+  if (tocBody.trim().length == 0 && editBtn.trim().length == 0) {
+    return ''
   }
-
   var el = ''
-  if (type.length > 0) {
-    el += `<widget class="widget-wrapper${scrollreveal(' ')} toc ${type}" id="data-toc" collapse="${item.collapse}">`
-    if (proj) {
-      // wiki 布局
-      if (proj.sections && proj.sections.length > 0 && proj.pages.length > 1) { // 多 pages
-        for (let sec of proj.sections) {
-          if (sec.pages.length == 0) {
-            continue
-          }
-          if (sec.title?.length > 0) {
-            el += layoutTocHeader(sec.title)
-          }
-          el += `<div class="widget-body fs14">`
-          el += layoutDocTree(sec.pages)
-          el += `</div>`
-        }
-      } else { // 单 page
-        if (proj.pages.length == 1) {
-          el += layoutTocHeader()
-        }
-        el += `<div class="widget-body fs14">`
-        el += layoutDocTree(proj.pages)
-        el += `</div>`
-        if (hasTOC == false) {
-          return ''
-        }
-      }
-    } else {
-      // post 布局
-      el += layoutTocHeader()
-      el += `<div class="widget-body fs14">`
-      el += `<div class="doc-tree active">`
-      el += layoutTocBody()
-      el += `</div>`
-      el += `</div>`
-      if (hasTOC == false) {
-        return ''
-      }
-    } 
-    el += `</widget>`
-  } else if (item.fallback) {
-    const fallback = theme.widgets[item.fallback]
-    el += partial(fallback.layout, {item: fallback})
+  el += `<widget class="widget-wrapper${scrollreveal(' ')} toc" id="data-toc" collapse="${item.collapse}">`
+  if (tocBody.length > 0) {
+    el += layoutTocHeader()
+    el += `<div class="widget-body">`
+    el += tocBody
+    el += `</div>`
   }
+  el += `<div class="widget-footer">`
+  el += editBtn
+  el += `<a class="top" onclick="util.scrollTop()">`
+  el += icon('default:upup')
+  el += `<span>${__('btn.top')}</span>`
+  el += `</a>`
+  if (page.comments) {
+    el += `<a class="buttom" onclick="util.scrollComment()">`
+    el += icon('default:tocomment')
+    el += `<span>${__('btn.comments')}</span>`
+    el += `</a>`
+  }
+  el += `</div>`
+  el += `</widget>`
   return el
 }
 

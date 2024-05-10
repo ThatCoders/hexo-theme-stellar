@@ -1,45 +1,32 @@
-const codeElementArr = document.querySelectorAll('.code')
-codeElementArr.forEach(code => {
-  // copy btn 
-  const codeCopyBtn = document.createElement('div')
-  codeCopyBtn.classList.add('copy-btn')
-  codeCopyBtn.innerHTML = stellar.plugins.copycode.default_text
+window.codeElements.forEach((codeElement) => {
+  // 创建复制按钮
+  const codeCopyBtn = document.createElement('div');
+  codeCopyBtn.className = 'copy-btn';
+  codeCopyBtn.textContent = ctx.copycode.default_text;
+  codeElement.appendChild(codeCopyBtn);
 
-  code.appendChild(codeCopyBtn)
-
+  // 添加点击事件监听
   codeCopyBtn.addEventListener('click', async () => {
-    const currentCodeElement = code.children[0]?.innerText
-    await copyCode(currentCodeElement)
-
-    codeCopyBtn.innerHTML = stellar.plugins.copycode.success_text
-    codeCopyBtn.classList.add('success')
-    hud.toast(stellar.plugins.copycode.toast, 2500)
-    setTimeout(() => {
-      codeCopyBtn.innerHTML = stellar.plugins.copycode.default_text
-      codeCopyBtn.classList.remove('success')
-    },3000)
-  })
-})
-
-async function copyCode(currentCode) {
-  if (navigator.clipboard) {
-    try {
-      await navigator.clipboard.writeText(currentCode)
-    } catch (error) {
-      // 未获得用户许可
-      codeCopyBtn.innerText = '未获得用户许可'
-      codeCopyBtn.classList.add('warning')
-      setTimeout(() => {
-        codeCopyBtn.innerText = stellar.plugins.copycode.default_text
-        codeCopyBtn.classList.remove('warning')
-      },3000)
+    const codeToCopy = codeElement.querySelector('pre')?.innerText || '';
+    if (navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(codeToCopy);
+        codeCopyBtn.textContent = ctx.copycode.success_text;
+        codeCopyBtn.classList.add('success');
+        hud.toast(ctx.copycode.toast, 2500);
+      } catch (error) {
+        codeCopyBtn.textContent = '未获得用户许可';
+        codeCopyBtn.classList.add('warning');
+      }
+    } else {
+      codeCopyBtn.textContent = '浏览器不支持/非HTTPS';
+      codeCopyBtn.classList.add('warning');
     }
-  } else {
-    codeCopyBtn.innerText = '当前浏览器不支持此api'
-    codeCopyBtn.classList.add('warning')
+
+    // 3秒后恢复默认文本
     setTimeout(() => {
-      codeCopyBtn.innerText = stellar.plugins.copycode.default_text
-      codeCopyBtn.classList.remove('warning')
-    },3000)
-  }
-}
+      codeCopyBtn.textContent = ctx.copycode.default_text;
+      codeCopyBtn.classList.remove('success', 'warning');
+    }, 3000);
+  });
+});

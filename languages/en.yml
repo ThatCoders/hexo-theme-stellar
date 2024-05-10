@@ -10,11 +10,15 @@ btn:
   tag: Tag
   tags: Tags
   archives: Archives
+  all_posts: All Posts
   getting_started: Getting Started
+  edit: Edit This Page
+  top: Scroll to Top
+  comments: Join Discussion
 
 meta:
   recent_update: Recent Update
-  toc: TOC
+  toc: On This Page
   read_next: READ NEXT
   prev: Prev
   next: Next
@@ -22,7 +26,6 @@ meta:
   newer: Newer
   references: References
   related_posts: Related Posts
-  comment_title: Join the discussion
   back_to_top: Back to top
   more: More
   created_author: '%s posted on'
@@ -50,6 +53,10 @@ search:
 
 message:
   copied: Copied!
+  theme_switched:
+    light: Switched to Light Mode
+    dark: Switched to Dark Mode
+    auto: Switched to Auto Mode
 
 symbol:
   comma: ", "

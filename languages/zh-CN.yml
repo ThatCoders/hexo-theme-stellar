@@ -10,7 +10,11 @@ btn:
   tag: 标签
   tags: 标签
   archives: 归档
+  all_posts: 所有文章
   getting_started: 开始使用
+  edit: 编辑本文
+  top: 回到顶部
+  comments: 参与讨论
 
 meta:
   recent_update: 最近更新
@@ -22,7 +26,6 @@ meta:
   newer: 较新文章
   references: 参考资料
   related_posts: 您可能感兴趣的文章
-  comment_title: 快来参与讨论吧
   back_to_top: 回到顶部
   more: 更多
   created_author: 本文由 %s 发布于
@@ -50,6 +53,10 @@ search:
 
 message:
   copied: 复制成功
+  theme_switched:
+    light: 切换到浅色模式
+    dark: 切换到深色模式
+    auto: 切换到跟随系统配色
 
 symbol:
   comma: "，"

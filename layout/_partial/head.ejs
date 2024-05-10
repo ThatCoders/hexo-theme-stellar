@@ -102,7 +102,8 @@ function custom_inject() {
   <meta name="HandheldFriendly" content="True" >
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="theme-color" content="#f8f8f8">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f9fafb">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
   
   <title><%- generate_title() %></title>
 
@@ -118,11 +119,7 @@ function custom_inject() {
     <%- feed_tag(config.feed.path, {title: config.title}) %>
   <% } %>
 
-  <% if (theme.stellar.cdn_css) { %>
-    <%- css(theme.stellar.cdn_css) %>
-  <% } else { %>
-    <%- css('/css/main.css') %>
-  <% } %>
+  <link rel="stylesheet" href="<%- `${theme.stellar.main_css}?v=${stellar_info('version')}` %>">
 
   <% if (config.favicon) { %>
     <%- favicon_tag(config.favicon) %>
@@ -132,6 +129,5 @@ function custom_inject() {
     <%- css(theme.style.codeblock.highlightjs_theme) %>
   <% } %>
 
-  <%- partial('plugins/parser/head') %>
   <%- custom_inject() %>
 </head>

@@ -64,7 +64,7 @@ var searchFunc = function(path, filter, wrapperId, searchId, contentId) {
           var dataTitleLowerCase = dataTitle.toLowerCase();
           var dataContent = data.content;
           var dataContentLowerCase = dataContent.toLowerCase();
-          var dataUrl = data.path;
+          var dataUrl = data.path.startsWith('//') ? data.path.slice(1) : data.path; // 避免文章设置永久链接导致点击打开失败
           var indexTitle = -1;
           var indexContent = -1;
           var firstOccur = -1;
@@ -136,3 +136,35 @@ var searchFunc = function(path, filter, wrapperId, searchId, contentId) {
     }
   });
 };
+
+utils.jq(() => {
+  var $inputArea = $("input#search-input");
+    if ($inputArea.length == 0) {
+      return;
+    }
+    var $resultArea = document.querySelector("div#search-result");
+    $inputArea.focus(function() {
+      var path = ctx.search.path;
+      if (path.startsWith('/')) {
+        path = path.substring(1);
+      }
+      path = ctx.root + path;
+      const filter = $inputArea.attr('data-filter') || '';
+      searchFunc(path, filter, 'search-wrapper', 'search-input', 'search-result');
+    });
+    $inputArea.keydown(function(e) {
+      if (e.which == 13) {
+        e.preventDefault();
+      }
+    });
+    var observer = new MutationObserver(function(mutationsList, observer) {
+      if (mutationsList.length == 1) {
+        if (mutationsList[0].addedNodes.length) {
+          $('.search-wrapper').removeClass('noresult');
+        } else if (mutationsList[0].removedNodes.length) {
+          $('.search-wrapper').addClass('noresult');
+        }
+      }
+    });
+    observer.observe($resultArea, { childList: true });
+  });
