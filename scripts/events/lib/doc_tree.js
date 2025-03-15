@@ -19,6 +19,7 @@ class WikiPage {
 function getWikiObject(ctx) {
   var wiki = { tree:{} }
   const data = ctx.locals.get('data')
+  console.log(data['wiki/share'])
   var list = []
   for (let key of Object.keys(data)) {
     if (key.endsWith('.DS_Store')) {

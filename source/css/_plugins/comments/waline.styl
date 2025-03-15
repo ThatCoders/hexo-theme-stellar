@@ -12,14 +12,16 @@
   --waline-theme-color: $color-theme;
   --waline-active-color: $color-hover;
   /* 布局颜色 */
-  --waline-color: #444;
-  --waline-bgcolor: #fff;
-  --waline-bgcolor-light: #f8f8f8;
-  --waline-bgcolor-hover: #f0f0f0;
+  --waline-color: var(--text-p1);
+  --waline-bgcolor: var(--alpha20);
+  --waline-bgcolor-light: var(--alpha50);
+  --waline-bgcolor-hover: var(--alpha70);
   --waline-border-color: #ddd;
   --waline-disable-bgcolor: #f8f8f8;
   --waline-disable-color: #bbb;
   --waline-code-bgcolor: #282c34;
+  --waline-bgcolor-light: transparent !important;
+  --waline-bg-color: var(--alpha20) !important;
   /* 特殊颜色 */
   --waline-bq-color: #f0f0f0;
   /* 头像 */
@@ -36,7 +38,7 @@
   --waline-border: 1px solid var(--waline-border-color);
   --waline-avatar-radius: 50%;
   --waline-box-shadow: none;
-  
+
 
 //  @media (prefers-color-scheme: dark)
 //    --waline-white: #000;

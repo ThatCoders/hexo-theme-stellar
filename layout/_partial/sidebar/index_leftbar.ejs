@@ -105,6 +105,9 @@ function layoutFooterDiv() {
       if (item.title) {
         el += ' title="' + item.title + '"';
       }
+      if (item.span && /^\d+$/.test(item.span) && parseInt(item.span) > 1) {
+        el += ' style="grid-column: span ' + item.span + ';height:32px;padding: 0;"'
+      }
       if (item.url) {
         el += ' href="' + url_for(item.url) + '"';
         if (item.url.includes('://')) {

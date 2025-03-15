@@ -113,13 +113,15 @@ function layoutDiv() {
     }
   }
   el += `
-  <div class="content"${style}>
-    ${top}
-    ${bottom}
-  </div>
-  `
+    <div class="content"${style}>
+      ${top}
+      ${bottom}
+    </div>
+    `
   el += `</div>`
   return el
 }
+
+
 %>
 <%- layoutDiv() %>
