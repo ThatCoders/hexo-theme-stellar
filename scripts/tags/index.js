@@ -24,6 +24,8 @@ hexo.extend.tag.register('toc', require('./lib/toc')(hexo))
 hexo.extend.tag.register('timeline', require('./lib/timeline')(hexo), {ends: true})
 hexo.extend.tag.register('md', require('./lib/md')(hexo))
 hexo.extend.tag.register('chat', require('./lib/chat')(hexo), {ends: true})
+// data-custom
+hexo.extend.tag.register('timetmpl', require('./custom/timetmpl')(hexo), {ends: true})
 
 // express
 hexo.extend.tag.register('checkbox', require('./lib/checkbox')(hexo, 'checkbox'))
