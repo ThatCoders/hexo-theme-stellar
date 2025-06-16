@@ -8,21 +8,31 @@
 
 'use strict';
 
-module.exports = ctx => function(args) {
-  args = ctx.args.map(args, ['type', 'bilibili', 'ratio', 'width', 'autoplay'], ['src'])
+module.exports = ctx => function (args) {
+  args = ctx.args.map(args, ['type', 'bilibili', 'youtube', 'ratio', 'width', 'autoplay'], ['src'])
   if (args.width == null) {
     args.width = '100%'
   }
   if (args.bilibili) {
-    return `
-    <div class="tag-plugin video" style="aspect-ratio:${args.ratio || 16/9};max-width:${args.width};">
+    return `<div class="tag-plugin video" style="aspect-ratio:${args.ratio || 16 / 9};max-width:${args.width};">
     <iframe src="https://player.bilibili.com/player.html?bvid=${args.bilibili}&autoplay=${args.autoplay || 'false'}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true">
     </iframe>
     </div>
     `
   }
-  return `
-  <div class="tag-plugin video" style="max-width:${args.width};">
+  if (args.youtube) {
+    if(args.autoplay == 'true' || args.autoplay == '1') { 
+      args.autoplay = '1&mute=1'
+    } else {
+      args.autoplay = '0'
+    }
+    return `<div class="tag-plugin video" style="aspect-ratio:${args.ratio || 16 / 9};max-width:${args.width};">
+    <iframe style="border:none" src="https://www.youtube.com/embed/${args.youtube}?rel=0&disablekb=1&playsinline=1&autoplay=${args.autoplay}" picture-in-picture="true" allowfullscreen="true" >
+    </iframe>
+    </div>
+    `
+  }
+  return `<div class="tag-plugin video" style="max-width:${args.width};">
   <video controls preload>
   <source src="${args.src}" type="${args.type || 'video/mp4'}">Your browser does not support the video tag.
   </video>
