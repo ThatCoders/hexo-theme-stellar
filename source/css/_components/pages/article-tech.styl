@@ -1,35 +1,56 @@
-.l_body[type='tech'] .md-text
-  h1,h2,h3,h4,h5,h6
+.l_body[type='tech'] .md-text.content
+  h1, h2, h3, h4, h5, h6
     color: var(--text)
     line-height: 1.8
-    >a:first-child
-      background: $color-theme
+    position: relative
+    padding-left: 1.8em
+    margin: 1.2em 0 0.6em
+
+    &:before
+      content: ''
+      position: absolute
+      left: 0
+      top: 0.25em
+      bottom: 0.25em
       border-radius: 2px
-      margin-right: 8px
-      padding: 0 2px
-      trans1 all
-      &:hover
-        background: $color-hover
-      &:before,&:after
-        color: white
-        font-weight: 700
-      &:before
-        content: ''
-        font-size: 0.5em
-      &:after
-        font-size: 0.25em
-  h2
-    font-weight: 500
+      width: 3px
+      background-color: $color-hover
+      transition: background-color 0.3s ease
+
     >a:first-child
+      color: $color-hover
+      background: none
+      padding: 0
+      border-radius: 0
+      text-decoration: none
+      display: inset-block-start
+      position: relative
+      width: 1.5em
+      margin-left: -1.5em
+      margin-right: 0.5em
+      text-align: right
+      &:hover
+        color: darken($color-hover, 10%)
       &:before
-        content: hexo-config('style.header_prefix.h2')
-  h3
-    >a:first-child:before
-      content: hexo-config('style.header_prefix.h3')
-  h4
-    >a:first-child:before
-      content: hexo-config('style.header_prefix.h4')
-  h5
-    >a:first-child:before
-      content: hexo-config('style.header_prefix.h5')
-    
+        display: inset-block-start
+        width: 1.5em
+        font-size: 0.9em
+        font-weight: 700
+        text-align: right
+
+
+  for level in (1..6)
+    h{level}:before
+      width: (3px - (level - 1) * 0.3px)
+      background-color: alpha($color-hover, 1 - (level - 1) * 0.15)
+
+  h2 >a:first-child:before
+    content: hexo-config('style.header_prefix.h2')
+  h3 >a:first-child:before
+    content: hexo-config('style.header_prefix.h3')
+  h4 >a:first-child:before
+    content: hexo-config('style.header_prefix.h4')
+  h5 >a:first-child:before
+    content: hexo-config('style.header_prefix.h5')
+  h6 >a:first-child:before
+    content: hexo-config('style.header_prefix.h6')
