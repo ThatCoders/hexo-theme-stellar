@@ -92,11 +92,7 @@ function custom_inject() {
 
 <head>
   <meta charset="utf-8">
-  <% if (page.__index) { %>
-    <link rel="canonical" href="<%= config.url %>" />
-  <% } else { %>
-    <link rel="canonical" href="<%= page.permalink || page.path %>" />
-  <% } %>
+  <link rel="canonical" href="<%= page.__index ? config.url : (page.permalink || page.path) %>" />
   <meta name="hexo-theme" content="<%- stellar_info('tree') %>" theme-name="<%- stellar_info('name') %>" theme-version="<%- stellar_info('version') %>">
   <%- generate_robots() %>
   <%- meta_generator() %>
