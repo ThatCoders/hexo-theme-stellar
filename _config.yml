@@ -1,6 +1,6 @@
 ######## Stellar info ########
 stellar:
-  version: '1.30.4'
+  version: '1.31.0'
   homepage: 'https://xaoxuu.com/wiki/stellar/'
   repo: 'https://github.com/xaoxuu/hexo-theme-stellar'
   main_css: /css/main.css
@@ -627,7 +627,7 @@ style:
     card: 16px # 文章内大部分卡片的圆角
     card-s: 12px # 文章内小型卡片的圆角
     bar: 8px # 横条类元素的圆角
-    image: 12px # 图片圆角
+    image: 24px # 图片圆角
   color:
     # 动态颜色（会根据明暗主题重设明度值，只用关心色相和饱和度即可）
     background: 'hsl(212 16% 98%)' # 浅色背景颜色
@@ -683,8 +683,8 @@ default:
 
 
 api_host:
-  ghapi: https://api.github.com
-  ghraw: https://raw.githubusercontent.com
-  gist: https://gist.github.com
+  ghapi: api.github.com
+  ghraw: raw.githubusercontent.com
+  gist: gist.github.com
   # https://github.com/anuraghazra/github-readme-stats
-  ghcard: https://github-readme-stats.vercel.app
+  ghcard: github-readme-stats.vercel.app
