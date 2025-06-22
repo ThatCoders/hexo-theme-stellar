@@ -1,7 +1,9 @@
 .l_body
   display: grid
   grid-template-columns: 1fr minmax(200px,var(--width-main)) 1fr
-  grid-gap: var(--gap-margin)
+  grid-gap: calc(var(--gap-margin) * 4)
+  @media screen and (max-width: $device-desktop)
+    grid-gap: calc(var(--gap-margin) * 2)
   margin: auto
   font-size: var(--fsp)
 
@@ -16,11 +18,10 @@
 
 .l_body .l_left
   justify-self: right
-  top: 8px
+  top: calc(var(--gap-margin) * 2)
 .l_body .l_right
   justify-self: left
-  --gap-margin: 0px
-  max-height: calc(100% - 8px * 2)
+  max-height: calc(100% - calc(var(--gap-margin) * 2) * 2)
   .widgets
     height: 100%
     overflow visible
@@ -32,16 +33,16 @@
   .laptop-only
     display: block !important
   .l_body
+    grid-gap: calc(var(--gap-margin) * 1)
     .l_right
-      top: 8px
       position: fixed
       transform: translateX(320px)
       transition: transform .38s ease-out
       margin: 0
       --inset: 8px
       right: var(--inset)
-      top: var(--inset)
-      max-height: 'calc(%s - %s)' % (100vh $rightbar-bottom-margin)
+      top: calc(var(--gap-margin) * 2)
+      max-height: 'calc(%s - %s * 2 - %s)' % (100vh var(--gap-margin) $rightbar-bottom-margin)
       box-shadow: $boxshadow-card-float
       z-index: 10
       background: var(--site-bg)
@@ -70,11 +71,11 @@
       margin: 0
       --inset: 8px
       left: var(--inset)
-      top: var(--inset)
-      max-height: 'calc(%s - %s)' % (100vh $leftbar-bottom-margin)
+      top: calc(var(--gap-margin) * 2)
+      max-height: 'calc(%s - %s * 2 - %s)' % (100vh var(--gap-margin) $leftbar-bottom-margin)
       .leftbar-container
         --inset: 8px
-        height: 'calc(%s - %s)' % (100vh $leftbar-bottom-margin)
+        height: 'calc(%s - %s * 2 - %s)' % (100vh var(--gap-margin) $leftbar-bottom-margin)
       box-shadow: $boxshadow-card-float
       z-index: 10
     .l_main
