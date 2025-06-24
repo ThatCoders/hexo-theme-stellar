@@ -98,7 +98,7 @@ function generate_canonical() {
     if (is_home()) {
       return `<link rel="canonical" href="https://${originalHost}/">`;
     } else if (page.path?.length > 0) {
-      const path = page.path.replace(/index\.html$/, '') || '/';
+      const path = page.path.replace(/index\.html$/, '').replace(/\.html$/, '') || '/';
       return `<link rel="canonical" href="https://${originalHost}/${path}">`;
     }
   }
@@ -129,7 +129,7 @@ function generate_canonical() {
     <%- open_graph(og_args()) %>
   <% } %>
   <%- generate_description() %>
-  
+
   <%- generate_keywords() %>
 
   <!-- feed -->
