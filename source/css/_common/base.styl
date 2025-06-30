@@ -8,9 +8,9 @@ pre
 
 a
   text-decoration: none
-  color: var(--theme-link)
+  color: var(--link)
   &:hover
-    color: $color-hover
+    color: var(--accent)
 
 .md-text p:not([class]) 
   text-align: convert(hexo-config('style.text-align'))
@@ -22,7 +22,6 @@ hr
 
 img
   max-width: 100%
-
 
 li
   font-size: 'calc(%s - 1px)' % var(--fsp)
@@ -36,24 +35,32 @@ ul,ol
 table:not([class])
   border-collapse: collapse
   overflow: auto
-  display: block
   margin: 1rem 0
   max-width: 100%
   vertical-align: text-top
   --fsp: $fsp2
   font-size: var(--fsp)
+  scrollbar(0,0)
+  display: table
   th
     background: var(--block)
+    border-top: 1px solid var(--block-border)
+    border-bottom: 1px solid var(--block-border)
   td,th
-    padding: 0.5em 1em
-    border: 1px solid var(--block-hover)
+    padding: 4px 1em
     line-height: 1.5
   tr
-    word-break: keep-all
-    white-space:nowrap
+    border-bottom: 1px dashed var(--block-border)
     trans()
     &:hover
       background: var(--block)
 
-*[ff=title]
-  font-family: $ff-logo
+  @media screen and (min-width: $device-mobile-max)
+    width 100%
+
+  @media screen and (max-width: $device-mobile-max)
+    display: block
+    tr
+      word-break: keep-all
+      white-space:nowrap
+

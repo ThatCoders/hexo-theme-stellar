@@ -1,11 +1,11 @@
 .cmt-body.twikoo
-  --twikoo-theme: $color-theme
+  --twikoo-theme: var(--theme)
   margin-top: 1.5rem
 
   .tk-content
     .vemoji, .tk-owo-emotion
       width: unset
-      border-radius: $border-image
+      border-radius: $border-image-s
       max-height: 24px
       max-width: 100px
       display: inline
@@ -13,7 +13,7 @@
     img
       max-width: 400px
       max-height: 400px
-      border-radius: $border-image
+      border-radius: $border-image-s
 
 .OwO
   .OwO-body
@@ -38,15 +38,15 @@
   .el-button:not(.el-button--primary):not(.el-button--text):focus,
   .el-button:not(.el-button--primary):not(.el-button--text):hover
     color: var(--twikoo-theme) !important
-    border-color: var(--theme-link-opa) !important
+    border-color: var(--link-a20) !important
     background-color: var(--block) !important
   .el-button--primary.is-disabled:active,
   .el-button--primary.is-disabled:focus,
   .el-button--primary.is-disabled:hover
-    background-color: var(--theme-link-opa) !important
+    background-color: var(--link-a20) !important
 
   .el-button:focus,.el-button:hover
-    border-color: var(--theme-link-opa)
+    border-color: var(--link-a20)
   .el-button:active
     color: var(--twikoo-theme)
     border-color: var(--twikoo-theme)
@@ -58,8 +58,8 @@
     background-color: var(--twikoo-theme)
     border-color: var(--twikoo-theme) !important
   .el-button--primary:focus,.el-button--primary:hover
-    background: $color-hover
-    border-color: $color-hover !important
+    background: var(--accent)
+    border-color: var(--accent) !important
   .el-button--primary:active
     background: var(--twikoo-theme)
     border-color: var(--twikoo-theme)
@@ -70,11 +70,11 @@
   .el-button--primary.is-disabled:active,
   .el-button--primary.is-disabled:focus,
   .el-button--primary.is-disabled:hover
-    background-color: var(--theme-link-opa) !important
-    border-color: var(--theme-link-opa) !important
+    background-color: var(--link-a20) !important
+    border-color: var(--link-a20) !important
   .el-button--primary.is-plain
     color: var(--twikoo-theme) !important
-    border-color: var(--theme-link-opa)
+    border-color: var(--link-a20)
   .el-button--primary.is-plain:focus,
   .el-button--primary.is-plain:hover
     background: var(--twikoo-theme) !important
@@ -111,7 +111,7 @@
     border: none
     padding: 6px 2rem
     border-radius: $border-card
-    background: var(--block-hover)
+    background: var(--block)
     color: var(--text-p1)
     line-height: 2
     font-size: 14px
@@ -146,7 +146,7 @@
 
   .tk-tag-green
     border: none
-    background-color: var(--theme-link-opa)
+    background-color: var(--link-a20)
     color: var(--twikoo-theme)
     
   .tk-comments-title .tk-comments-count

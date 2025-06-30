@@ -24,7 +24,7 @@
   ul:not(:last-child),
   ol:not(:last-child)
     padding-bottom: .5rem
-    margin: 0
+    margin: 0 .25rem
   blockquote,ul,ol
     p,ul,ol
       --fsp: $fsp1
@@ -75,9 +75,11 @@
 
 // 图片样式
 .md-text img
-  border-radius: $border-image
   margin: auto
   display: block
+.md-text.content 
+  p>img, .tag-plugin.image .image-bg
+    border-radius: $border-image
 
 // 链接样式
 li:not([class]) a:not([class])
@@ -90,9 +92,9 @@ table a:not([class])
   background: linear-gradient(0deg,var(--block-border),var(--block-border)) no-repeat left 100%/100% 2px
   &:hover
     text-decoration: none
-    color: var(--theme-link)
+    color: var(--link)
     border-radius: 4px
-    background: linear-gradient(0deg,var(--theme-link-opa),var(--theme-link-opa)) no-repeat left 100%/100% 100%
+    background: linear-gradient(0deg,var(--link-a20),var(--link-a20)) no-repeat left 100%/100% 100%
   &:has(img)
     background: none
     &:hover
