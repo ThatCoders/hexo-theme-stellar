@@ -1,5 +1,4 @@
 .widget-wrapper.toc
-  background: var(--site-bg)
   z-index 3
   .widget-body
     position relative
@@ -26,7 +25,7 @@
   a
     --padding: calc(var(--gap-padding) / 2)
     --padding-offset: calc(0 - var(--padding))
-    padding: 6px var(--padding)
+    padding: 4px var(--padding)
     margin: 0 var(--padding)
     color: var(--text-p3)
     display: block
@@ -40,10 +39,10 @@
       bottom: 6px
       left: -8px
       width: 4px
-      background: $color-theme
+      background: var(--theme)
       border-radius: 4px
     &:hover
-      background: var(--block-hover)
+      background: var(--block-border)
       color: var(--text)
 
 // 固定位置
@@ -163,7 +162,7 @@
       width: auto
       margin-right: 8px
   a:hover
-    background: var(--block-hover)
+    background: var(--block-border)
     color: var(--text)
 
 .widget-wrapper.toc+.widget-wrapper
@@ -181,6 +180,6 @@
       color: var(--text-p2)
   .widget-wrapper.toc .widget-footer
     a
-      background: var(--alpha100)
+      background: var(--bg-a100)
     a+a
       margin-top: 4px

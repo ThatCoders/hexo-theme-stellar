@@ -1,6 +1,6 @@
 ######## Stellar info ########
 stellar:
-  version: '1.31.0'
+  version: '1.32.2'
   homepage: 'https://xaoxuu.com/wiki/stellar/'
   repo: 'https://github.com/xaoxuu/hexo-theme-stellar'
   main_css: /css/main.css
@@ -180,8 +180,6 @@ article:
   type: tech # tech: 默认技术类文章, story: 图文类文章，文字和段落间增距大
   # 缩进两个文字宽度，适合文字类博客，可以在 front-matter/topic/wiki 中覆盖此参数
   indent: # true / false
-  # 如果没有指定封面，是否根据 tags 作为关键词搜索封面图片？
-  auto_cover: false # search from https://source.unsplash.com/
   # 封面图宽高比
   cover_ratio: 2
   # 文章内横幅宽高比
@@ -222,6 +220,7 @@ comments:
   service: # beaudar, utterances, giscus, twikoo, waline, artalk
   comment_title: 快来参与讨论吧~
   lazyload: false # true / false
+  custom_css: # artalk,twikoo,... 可以为没有全局启用的评论加载自定义样式
   # beaudar
   # https://beaudar.lipk.org/
   beaudar:
@@ -312,10 +311,10 @@ comments:
   # Artalk
   # https://artalk.js.org/
   artalk:
-    css: https://unpkg.com/artalk@2.8/dist/Artalk.css
-    js: https://unpkg.com/artalk@2.8/dist/Artalk.js
+    css: https://unpkg.com/artalk@2.9/dist/Artalk.css
+    js: https://unpkg.com/artalk@2.9/dist/Artalk.js
     server: # 后端服务地址
-    placeholder: ''
+    site: '' # 站点名称
     darkMode: auto
 
 
@@ -334,23 +333,31 @@ footer:
     # comments:
     #   icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/942ebbf1a4b91.svg"/>'
     #   url: /about/#comments
-    # theme:
-    #   icon: default:theme
-    #   onclick: 'switchTheme()'
   sitemap:
-    # '博客':
-    #   - '[近期](/)'
-    #   - '[分类](/)'
-    #   - '[标签](/)'
-    #   - '[归档](/)'
-    # '项目':
-    #   - '[开源库](/)'
-    # '社交':
-    #   - '[友链](/)'
-    #   - '[留言板](/)'
-    # '更多':
-    #   - '[关于本站](/)'
-    #   - '[GitHub](/)'
+    # - title: 博客
+    #   items:
+    #     - '[近期发布](/)'
+    #     - '[分类](/blog/categories/)'
+    #     - '[标签](/blog/tags/)'
+    #     - '[归档](/blog/archives/)'
+    # - title: 项目
+    #   items:
+    #     - '[xxx](/)'
+    #     - '[xxx](/)'
+    #     - '[xxx](/)'
+    #     - '[xxx](/)'
+    # - title: 社交
+    #   items:
+    #     - '[xxx](/)'
+    #     - '[xxx](/)'
+    #     - '[xxx](/)'
+    #     - '[xxx](/)'
+    # - title: 关于
+    #   items:
+    #     - '[xxx](/)'
+    #     - '[xxx](/)'
+    #     - '[xxx](/)'
+    #     - '[xxx](/)'
   content: | # 支持 Markdown 格式
     本站由 [{author.name}](/) 使用 [{theme.name} {theme.version}]({theme.tree}) 主题创建。
     本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议，转载请注明出处。
@@ -438,7 +445,10 @@ tag_plugins:
 dependencies:
   jquery: https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js
   marked: https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js
-
+  lazyload:
+    js: https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js
+    transition: fade # blur, fade
+    fix_ratio: true # true / false
 
 # 内置服务，按需加载（页面内用到了就会加载，没有用到就不会加载）
 data_services:
@@ -488,7 +498,7 @@ data_services:
 
 
 # 扩展插件接入方法：(插件名下面用 #plugin# 代替)
-# 1. 在这里增加 #plugin# 配置，至少赢含有 enable 字段，默认为空（不启用）
+# 1. 在这里增加 #plugin# 配置，至少应含有 enable 字段，默认为空（不启用）
 # 2. 新建文件 layout/_plugins/#plugin#.ejs 文件中设置编写加载代码。
 # 2.1. 在该文件中可以直接使用 conf 来读取用户在【步骤 1】填写的配置字段内容
 # 2.2. 如果需要引入 css 或 js，可以使用 utils.css(xxx)、utils.js(xxx)，具体可参考 layout/_plugins/fancybox.ejs
@@ -501,13 +511,6 @@ plugins:
     enable: true
     service: flying_pages # flying_pages
     flying_pages: https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js
-
-  # lazyload
-  # https://www.npmjs.com/package/vanilla-lazyload
-  lazyload:
-    enable: true # [hexo clean && hexo s] is required after changing this value.
-    js: https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js
-    transition: fade # blur, fade
 
   # https://fancyapps.com/docs/ui/fancybox/
   # available for {% image xxx %}
@@ -530,11 +533,11 @@ plugins:
 
   # https://scrollrevealjs.org/api/reveal.html
   scrollreveal:
-    enable: #true
+    enable: #true # 慎用，有些时候打开页面空白
     js: https://gcore.jsdelivr.net/npm/scrollreveal@4.0/dist/scrollreveal.min.js
-    distance: 16px
-    duration: 800 # ms
-    interval: 100 # ms
+    distance: 8px
+    duration: 500 # ms
+    interval: 50 # ms
     scale: 1 # 0.1~1
   
   # AI 摘要
@@ -608,17 +611,16 @@ plugins:
 
 style:
   prefers_theme: auto # auto / light / dark
-  smooth_scroll: false # true / false 开启时如果目录过长可能无法准确定位
+  smooth_scroll: true # true / false 开启时如果目录过长可能无法准确定位
   font-size:
     root: 16px # 改这个会影响全局所有文字的字号
     body: 17px # 影响正文区域的字号，如果改成 px 则不受 root 影响
     code: 85% # 相较于其所在行的文本大小，建议用百分比
     codeblock: 0.8125rem # 13px
   font-family:
-    logo: 'system-ui, "Microsoft Yahei", "Segoe UI", -apple-system, Roboto, Ubuntu, "Helvetica Neue", Arial, "WenQuanYi Micro Hei", sans-serif'
-    body: 'system-ui, "Microsoft Yahei", "Segoe UI", -apple-system, Roboto, Ubuntu, "Helvetica Neue", Arial, "WenQuanYi Micro Hei", sans-serif'
-    code: 'Menlo, Monaco, Consolas, system-ui, "Courier New", monospace, sans-serif'
-    codeblock: 'Menlo, Monaco, Consolas, system-ui, "Courier New", monospace, sans-serif'
+    body: 'system-ui, "Microsoft Yahei", "Segoe UI", Arial, sans-serif'
+    code: 'Menlo, Monaco, Consolas, system-ui, monospace, sans-serif'
+    codeblock: 'Menlo, Monaco, Consolas, system-ui, monospace, sans-serif'
   text-align: left
   prefix:
     h2: https://api.iconify.design/ci:heading-h2.svg
@@ -627,7 +629,9 @@ style:
     card: 16px # 文章内大部分卡片的圆角
     card-s: 12px # 文章内小型卡片的圆角
     bar: 8px # 横条类元素的圆角
-    image: 24px # 图片圆角
+    image-l: 24px # 非技术类文章插图圆角
+    image: 16px # 技术类文章插图圆角
+    image-s: 8px # 评论区图片圆角（部分评论支持）
   color:
     # 动态颜色（会根据明暗主题重设明度值，只用关心色相和饱和度即可）
     background: 'hsl(212 16% 98%)' # 浅色背景颜色
@@ -652,18 +656,20 @@ style:
     start: 'linear-gradient(to right, hsl(215, 95%, 64%), hsl(195, 95%, 60%), hsl(165, 95%, 56%), hsl(165, 95%, 56%), hsl(195 95% 60%), hsl(215, 95%, 64%))'
   leftbar:
     # 可以设置：纯色/渐变色/图片作为背景
-    # background: var(--leftbar-bg)
+    background-color: var(--card) # var(--block)
     background-image: url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.13/image/sidebar-bg1@small.jpg)
     blur-px: 100px
-    blur-bg: var(--alpha60)
+    blur-bg: var(--bg-a60)
+    background-opacity: 0.8
   paginator:
     prev: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/arrow/f049bbd4e88ec.svg
     next: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/arrow/064b95430caf4.svg
   error_page: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/404/1c830bfcd517d.svg
-  site:
-    background-image: #'url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.14/image/site-bg1@small.webp)' # 未完全适配，慎用
+  site: # 使用 background-image 后，blur 设置才有效
+    # background-image: 'url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.14/image/site-bg1@small.webp)'
     blur-px: 100px
-    blur-bg: var(--alpha75)
+    blur-bg: var(--bg-a75)
+    blur-sat: 300%
   # 技术文章内页各级标题前面的符号
   header_prefix:
     h2: '⌘'
@@ -680,7 +686,9 @@ default:
   project: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2779789.png
   banner: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/banner/books.jpg
   topic: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/10433048.png
-
+  loading: https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd
+  # loading: https://github.githubassets.com/images/mona-loading-dark.gif
+  image_onerror: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E"
 
 api_host:
   ghapi: api.github.com

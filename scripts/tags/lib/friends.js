@@ -19,7 +19,7 @@ module.exports = ctx => function(args) {
   
   var el = `<div class="tag-plugin ${args.posts ? 'users-posts-wrap' : 'users-wrap'}">`
   if (api) {
-    el += `<div class="ds-friends${args.posts ? '_and_posts' : ''}" ${ctx.args.joinTags(args, ['size']).join(' ')} api="${api}"><div class="grid-box"></div></div>`
+    el += `<div class="data-service ds-friends${args.posts ? '_and_posts' : ''}" ${ctx.args.joinTags(args, ['size']).join(' ')} api="${api}"><div class="grid-box"></div></div>`
   } else if (args.group) {
     const links = ctx.theme.config.links || {}
     el += '<div class="grid-box">'
@@ -27,7 +27,10 @@ module.exports = ctx => function(args) {
       if (item?.url && item?.title) {
         el += `<div class="grid-cell user-card">`
         el += `<a class="card-link" target="_blank" rel="external nofollow noopener noreferrer" href="${item.url}">`
-        el += `<img src="${item.icon || item.avatar || ctx.theme.config.default.avatar}" onerror="javascript:this.removeAttribute(&quot;data-src&quot;);this.src=&quot;${ctx.theme.config.default.avatar}&quot;;"/>`
+        el += `<div class="lazy-box icon">`
+        el += `<img class="lazy" data-src="${item.icon || item.avatar || ctx.theme.config.default.avatar}" onerror="javascript:this.removeAttribute(&quot;data-src&quot;);this.src=&quot;${ctx.theme.config.default.avatar}&quot;;"/>`
+        el += `<div class="lazy-icon" style="background-image:url(&quot;${ctx.theme.config.default.loading}&quot;);"></div>`
+        el += `</div>`
         el += `<div class="name">`
         el += `<span>${item.title}</span>`
         el += `</div>`
