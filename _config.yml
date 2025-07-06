@@ -1,6 +1,6 @@
 ######## Stellar info ########
 stellar:
-  version: '1.32.2'
+  version: '1.33.0'
   homepage: 'https://xaoxuu.com/wiki/stellar/'
   repo: 'https://github.com/xaoxuu/hexo-theme-stellar'
   main_css: /css/main.css
@@ -315,7 +315,15 @@ comments:
     js: https://unpkg.com/artalk@2.9/dist/Artalk.js
     server: # 后端服务地址
     site: '' # 站点名称
-    darkMode: auto
+    darkMode: auto # 其它模式都有问题，慎用，否则后果自负
+    fancybox: true # 是否为评论区启用 fancybox
+    # artalk 有三类图片：1.上传至服务端 2.上传至服务端后利用upgit上传至图床 3.前端上传至图床（本配置为此类）
+    # 配置此项时将覆盖服务端上传能力
+    imageUploader:
+      # 以兰空图床为例，下列填写内容为：
+      # api: 'https://xxxxxx/api/v1/upload' # 图床上传地址
+      # token: 'Bearer xxxxxxxxxxxxxx' # 图床验证
+      # resp: 'data.links.url' # 图片地址返回值的字段
 
 
 ######## Footer ########
@@ -384,12 +392,12 @@ tag_plugins:
       prefix: ph:seal-question-fill
   # {% emoji %}
   emoji:
-    default: https://gcore.jsdelivr.net/gh/cdn-x/emoji/qq/{name}.gif
+    default: https://gcore.jsdelivr.net/gh/cdn-x/emoji@2.1.2/qq/{name}.gif
     twemoji: https://gcore.jsdelivr.net/gh/twitter/twemoji/assets/svg/{name}.svg
-    qq: https://gcore.jsdelivr.net/gh/cdn-x/emoji/qq/{name}.gif
-    aru: https://gcore.jsdelivr.net/gh/cdn-x/emoji/aru-l/{name}.gif
-    tieba: https://gcore.jsdelivr.net/gh/cdn-x/emoji/tieba/{name}.png
-    blobcat: https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs/{name}.png
+    qq: https://gcore.jsdelivr.net/gh/cdn-x/emoji@2.1.2/qq/{name}.gif
+    aru: https://gcore.jsdelivr.net/gh/cdn-x/emoji@2.1.2/aru/{name}.gif
+    tieba: https://gcore.jsdelivr.net/gh/cdn-x/emoji@2.1.2/tieba/{name}.png
+    blobcat: https://gcore.jsdelivr.net/gh/cdn-x/emoji@2.1.2/blobcat/{name}.gif
   icon:
     # 留空时，图标和文字颜色相同
     default_color: accent # theme, accent, red, orange, yellow, green, cyan, blue, purple
@@ -463,6 +471,14 @@ data_services:
     api: 
   ghinfo:
     js: /js/services/ghinfo.js
+  # 打分
+  rating:
+    js: /js/services/rating.js
+    api: https://star-vote.xaox.cc/api/rating
+  # 投票
+  vote:
+    js: /js/services/vote.js
+    api: https://star-vote.xaox.cc/api/vote
   # 网格布局类
   sites:
     js: /js/services/sites.js
@@ -495,6 +511,11 @@ data_services:
     js: /js/services/artalk_latest_comment.js
   giscus:
     js: /js/services/giscus_latest_comment.js
+  contributors:
+    edit_this_page: # 从开头开始匹配替换
+      '_posts/': # https://github.com/xaoxuu/xaoxuu.com/blob/main/source/_posts/
+      'wiki/stellar/': https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/
+    js: /js/services/contributors.js
 
 
 # 扩展插件接入方法：(插件名下面用 #plugin# 代替)
@@ -666,7 +687,7 @@ style:
     next: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/arrow/064b95430caf4.svg
   error_page: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/404/1c830bfcd517d.svg
   site: # 使用 background-image 后，blur 设置才有效
-    # background-image: 'url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.14/image/site-bg1@small.webp)'
+    # background-image: url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.14/image/site-bg1@small.webp)
     blur-px: 100px
     blur-bg: var(--bg-a75)
     blur-sat: 300%
@@ -696,3 +717,10 @@ api_host:
   gist: gist.github.com
   # https://github.com/anuraghazra/github-readme-stats
   ghcard: github-readme-stats.vercel.app
+
+
+
+# 非资深hexo开发者尽量不要动这块
+system:
+  # hexo 支持输出的链接格式众多，维护成本高，为了减少出错，统一成推荐的格式。
+  override_pretty_urls: true
