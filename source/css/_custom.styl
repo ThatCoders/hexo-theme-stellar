@@ -29,14 +29,16 @@ $fsp2 = 'calc(%s - 2px)' % $fs-body
 $fsp3 = 'calc(%s - 3px)' % $fs-body
 
 // site main
-$site-background = hexo-config('style.site.background-image')
+$site-background-image = hexo-config('style.site.background-image')
 $leftbar-background-image = hexo-config('style.leftbar.background-image')
 $leftbar-background-color = hexo-config('style.leftbar.background-color')
 
 
 // colors
-$c-theme = hsl(192deg, 98%, 55%)
-$c-accent = hsl(14deg, 100%, 57%)
+$c-theme = convert(hexo-config('style.color.theme'))
+$c-accent = convert(hexo-config('style.color.accent'))
+$c-link = convert(hexo-config('style.color.link'))
+
 $c-base-hue = 210deg // 背景/文本颜色的主基调（一般看不出来不需要修改）
 
 // icons

@@ -84,7 +84,7 @@ const hud = {
     document.body.appendChild(el);
 
     setTimeout(function(){ document.body.removeChild(el) }, d);
-    
+
   },
 
 }
@@ -143,7 +143,7 @@ const init = {
           e0.scrollBy({top: offsetBottom, behavior: "smooth"});
         }
       }
-      
+
       var timeout = null;
       window.addEventListener('scroll', function() {
         activeTOC();
@@ -151,7 +151,7 @@ const init = {
         timeout = setTimeout(function() {
           scrollTOC();
         }.bind(this), 50);
-      });      
+      });
     })
   },
   sidebar: () => {
@@ -229,23 +229,27 @@ const init = {
       document.body.appendChild(notice);
     }
     if (!canonical.originalHost) return;
+    const currentURL = new URL(window.location.href);
+    const currentHost = currentURL.hostname.replace(/^www\./, '');
+    if (currentHost == 'localhost') return;
+    const encodedCurrentHost = window.btoa(currentHost);
+    const isCurrentHostValid = canonical.encoded === encodedCurrentHost;
     const canonicalTag = document.querySelector('link[rel="canonical"]');
     if (!canonicalTag) {
+      if (isCurrentHostValid) {
+        return;
+      }
+      if (canonical.officialHosts?.includes(currentHost)) {
+        showTip(true);
+        return;
+      }
       showTip(false);
       return;
     }
     const canonicalURL = new URL(canonicalTag.href);
-    const currentURL = new URL(window.location.href);
     const canonicalHost = canonicalURL.hostname.replace(/^www\./, '');
-    const currentHost = currentURL.hostname.replace(/^www\./, '');
-    if (['localhost', canonical.originalHost].includes(currentHost)) {
-      canonicalTag.remove();
-      return;
-    }
     const encodedCanonicalHost = window.btoa(canonicalHost);
-    const encodedCurrentHost = window.btoa(currentHost);
     const isCanonicalHostValid = canonical.encoded === encodedCanonicalHost;
-    const isCurrentHostValid = canonical.encoded === encodedCurrentHost;
     if (isCanonicalHostValid && isCurrentHostValid) {
       return;
     }

@@ -101,6 +101,10 @@ function generate_canonical() {
       const path = page.path.replace(/index\.html$/, '').replace(/\.html$/, '') || '/';
       return `<link rel="canonical" href="https://${originalHost}/${path}">`;
     }
+    if (path.endsWith('.html') && path.length > 5) {
+      path = path.split('.html')[0];
+    }
+    return `<link rel="canonical" href="https://${originalHost}${path}">`;
   }
   return '';
 }
