@@ -21,10 +21,10 @@
       opacity: .4
     &:hover
       &:before
-        color $color-theme
+        color var(--theme)
         opacity: 1
       color: var(--text)
-      background: var(--block-hover)
+      background: var(--block-border)
 
 .post-list .post-card .meta.cap .tag
   &:before
@@ -40,7 +40,7 @@
   justify-content: end
   align-items: center
   &:hover
-    color: $color-theme
+    color: var(--theme)
 
 .widget-body.tag-tree .tag-subtree.parent-tag > a .tag-switcher
   display: inline-block

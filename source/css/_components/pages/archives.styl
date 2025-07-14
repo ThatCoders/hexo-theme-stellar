@@ -18,7 +18,7 @@
       right: 0
       z-index: -1
       border-radius: 4px
-      background: $color-theme
+      background: var(--theme)
   a.post
     display: inline-flex
     align-items: baseline
@@ -33,10 +33,10 @@
       flex-shrink: 0
       color: var(--text-p4)
     &:hover
-      border-bottom: 1px solid $color-theme
+      border-bottom: 1px solid var(--theme)
       color: var(--text)
       time
-        color: $color-theme
+        color: var(--theme)
 
 
 
@@ -67,11 +67,11 @@
       opacity: .5
       font-size: $fs-12
     &:hover
-      background: var(--block-hover)
+      background: var(--block-border)
       color: var(--text)
       .badge
         opacity: 1
-        color: $color-theme
+        color: var(--theme)
 
 .post-list #tags
   display: flex
@@ -96,10 +96,10 @@
       opacity: .4
     &:hover
       &:before
-        color $color-theme
+        color var(--theme)
         opacity: 1
       color: var(--text)
-      background: var(--block-hover)
+      background: var(--block-border)
 
 @media screen and (min-width: $device-mobile)
   .post-list.author #archive

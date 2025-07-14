@@ -35,17 +35,18 @@
     z-index: 1
     trans1 all
     &:hover
-      background: var(--alpha100)
+      background: var(--bg-a100)
     &.active, &:hover
       color: var(--text)
     &.active
-      background: var(--alpha60)
+      background: var(--bg-a60)
       @media (prefers-color-scheme: dark)
         background: rgba(white, 0.25)
       box-shadow: $boxshadow-button
       cursor default
       pointer-events: none
       backdrop-filter: saturate(300%)
+      -webkit-backdrop-filter: saturate(300%)
     &.active:after
       content: ''
   a+a
