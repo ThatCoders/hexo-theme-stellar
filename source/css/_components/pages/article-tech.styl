@@ -14,11 +14,11 @@
       bottom: 0.25em
       border-radius: 2px
       width: 3px
-      background-color: $color-hover
+      background-color: var(--theme-link)
       transition: background-color 0.3s ease
 
     >a:first-child
-      color: $color-hover
+      color: var(--theme-link)
       background: none
       padding: 0
       border-radius: 0
@@ -29,8 +29,8 @@
       margin-left: -1.5em
       margin-right: 0.5em
       text-align: right
-      &:hover
-        color: darken($color-hover, 10%)
+      //&:hover
+      //  color: color-mix(in srgb, var(--theme-link), black 10%)
       &:before
         display: inset-block-start
         width: 1.5em
@@ -42,7 +42,7 @@
   for level in (1..6)
     h{level}:before
       width: (3px - (level - 1) * 0.3px)
-      background-color: alpha($color-hover, 1 - (level - 1) * 0.15)
+      background-color: var(--theme-link)
 
   h2 >a:first-child:before
     content: hexo-config('style.header_prefix.h2')
