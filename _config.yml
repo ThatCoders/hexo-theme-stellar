@@ -1,6 +1,6 @@
 ######## Stellar info ########
 stellar:
-  version: '1.33.0'
+  version: '1.33.1'
   homepage: 'https://xaoxuu.com/wiki/stellar/'
   repo: 'https://github.com/xaoxuu/hexo-theme-stellar'
   main_css: /css/main.css
@@ -311,8 +311,8 @@ comments:
   # Artalk
   # https://artalk.js.org/
   artalk:
-    css: https://unpkg.com/artalk@2.9/dist/Artalk.css
-    js: https://unpkg.com/artalk@2.9/dist/Artalk.js
+    css: https://unpkg.com/artalk@2.9/dist/artalk.css
+    js: https://unpkg.com/artalk@2.9/dist/artalk.js
     server: # 后端服务地址
     site: '' # 站点名称
     darkMode: auto # 其它模式都有问题，慎用，否则后果自负
@@ -392,12 +392,12 @@ tag_plugins:
       prefix: ph:seal-question-fill
   # {% emoji %}
   emoji:
-    default: https://gcore.jsdelivr.net/gh/cdn-x/emoji@2.1.2/qq/{name}.gif
+    default: https://gcore.jsdelivr.net/gh/cdn-x/emoticons@3.1/qq/{name}.gif
     twemoji: https://gcore.jsdelivr.net/gh/twitter/twemoji/assets/svg/{name}.svg
-    qq: https://gcore.jsdelivr.net/gh/cdn-x/emoji@2.1.2/qq/{name}.gif
-    aru: https://gcore.jsdelivr.net/gh/cdn-x/emoji@2.1.2/aru/{name}.gif
-    tieba: https://gcore.jsdelivr.net/gh/cdn-x/emoji@2.1.2/tieba/{name}.png
-    blobcat: https://gcore.jsdelivr.net/gh/cdn-x/emoji@2.1.2/blobcat/{name}.gif
+    qq: https://gcore.jsdelivr.net/gh/cdn-x/emoticons@3.1/qq/{name}.gif
+    aru: https://gcore.jsdelivr.net/gh/cdn-x/emoticons@3.1/aru/{name}.gif
+    tieba: https://gcore.jsdelivr.net/gh/cdn-x/emoticons@3.1/tieba/{name}.png
+    blobcat: https://gcore.jsdelivr.net/gh/cdn-x/emoticons@3.1/blobcat/{name}.gif
   icon:
     # 留空时，图标和文字颜色相同
     default_color: accent # theme, accent, red, orange, yellow, green, cyan, blue, purple
@@ -537,7 +537,6 @@ plugins:
   # available for {% image xxx %}
   fancybox:
     enable: true
-    loader: /js/plugins/fancybox-loader.js
     js: https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js
     css: https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css
     # 让 md 语法图片支持放大可以这样写: .md-text img:not([class]), .md-text .image img
@@ -557,8 +556,8 @@ plugins:
     enable: #true # 慎用，有些时候打开页面空白
     js: https://gcore.jsdelivr.net/npm/scrollreveal@4.0/dist/scrollreveal.min.js
     distance: 8px
-    duration: 500 # ms
-    interval: 50 # ms
+    duration: 1000 # ms
+    interval: 100 # ms
     scale: 1 # 0.1~1
   
   # AI 摘要
