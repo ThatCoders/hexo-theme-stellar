@@ -1,0 +1,19 @@
+menubar:
+  columns: 4 # 一行多少个
+  items:
+    - id: post
+      title: 博客
+      icon:
+      url: /
+    - id: wiki
+      title: 笔记
+      icon:
+      url: /wiki/
+    - id: notes
+      title: 便签
+      icon:
+      url: /notes/
+    - id: social
+      title: 社交
+      icon:
+      url: /links/

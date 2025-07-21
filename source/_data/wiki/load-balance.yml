@@ -1,0 +1,21 @@
+name: LoadBalance
+title: 无状态部署通用负载均衡方案
+subtitle: 关于博客负载均衡的笔记 | 不对之处请指出
+tags: 运维
+base_dir: /wiki/LoadBalance/
+icon: /custom/img/load-balancer.jpg
+#cover_config: cover
+coverpage: true # 默认是 true
+cover: https://upyun.thatcdn.cn/myself/typora/BLOG-CDN-BANNER.jpg
+description: 钟意关于负载均衡的笔记
+comment_title: '不对之处请指出'
+tree:
+  '单平台部署':
+    - deploy/config
+    - deploy/vercel
+    - deploy/netlify
+    - deploy/cloudflare
+  '负载均衡部署':
+    - multiple/multiple
+    - multiple/panel
+    - multiple/proxy
